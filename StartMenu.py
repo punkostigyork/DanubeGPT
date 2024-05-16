@@ -11,6 +11,7 @@ def open_start_menu():
     # Create the main window
     root = tk.Tk()
     root.title("Essay Generator")
+    root.geometry("1000x700")  # Set window size to 1000x1000
 
     # Function to close the window
     def exit_program():
@@ -32,25 +33,21 @@ def open_start_menu():
 
     # Load the background image using Pillow
     image = Image.open(background_image_path)
+    image = image.resize((1000, 1000), Image.Resampling.LANCZOS)  # Resize the image to fit the window
     bg_image = ImageTk.PhotoImage(image)
-
-    # Get the image dimensions
-    img_width, img_height = image.size
-
-    # Set the window size to match the image
-    root.geometry(f"{img_width}x{img_height}")
 
     # Create a label to display the image
     background_label = Label(root, image=bg_image)
     background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-    # Create buttons
-    generate_button = Button(root, text="Generate New Essay", command=generate_new_essay)
-    exit_button = Button(root, text="Exit", command=exit_program)
+    # Create buttons with larger size
+    button_font = ("Helvetica", 16)
+    generate_button = Button(root, text="Generate New Essay", command=generate_new_essay, font=button_font, padx=20, pady=10)
+    exit_button = Button(root, text="Exit", command=exit_program, font=button_font, padx=20, pady=10)
 
     # Add buttons to the window
-    generate_button.place(relx=0.5, rely=0.5, anchor="center")
-    exit_button.place(relx=0.5, rely=0.55, anchor="center")
+    generate_button.place(relx=0.5, rely=0.4, anchor="center")
+    exit_button.place(relx=0.5, rely=0.6, anchor="center")
 
     # Start the main event loop
     root.mainloop()
